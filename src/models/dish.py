@@ -1,12 +1,15 @@
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from typing import Optional
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 class Dish(Base):
     __tablename__ = "dishes"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    description = Column(String)
-    price = Column(Float, nullable=False)
-    category = Column(String, nullable=False)
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    description: Mapped[Optional[str]] = mapped_column(String)
+    price: Mapped[float] = mapped_column(nullable=False)
+    category: Mapped[str] = mapped_column(String, nullable=False)
